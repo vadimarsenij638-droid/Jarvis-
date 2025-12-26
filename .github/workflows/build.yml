@@ -20,6 +20,15 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Generate Gradle Wrapper (if missing)
+        run: |
+          if [ ! -f gradlew ]; then
+            gradle wrapper --gradle-version 8.10.2 --distribution-type bin
+          fi
+
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon
 
